@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patirnt Registration form</title>
+  </head>
+  <body>
+    <h1>Patient Registration</h1>
+    <form action="/register" method="POST">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="age">Age:</label><br />
+      <input type="number" id="age" name="age" required /><br /><br />
+
+      <label for="phone">Phone:</label><br />
+      <input type="tel" id="phone" name="phone" required /><br /><br />
+
+      <label for="address">Address:</label><br />
+      <textarea id="address" name="address" required></textarea><br /><br />
+
+      <label for="doctorAssigned">Doctor Assigned:</label><br />
+      <input
+        type="text"
+        id="doctorAssigned"
+        name="doctorAssigned"
+        required
+      /><br /><br />
+
+      <button type="submit">Register and Download PDF</button>
+    </form>
+  </body>
+</html>

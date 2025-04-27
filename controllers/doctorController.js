@@ -1,7 +1,7 @@
 const Doctor = require("../models/Doctor");
 const bcrypt = require("bcryptjs");
 
-async function createDoctor(req, res) {
+async function createDoctor (req, res) {
   try {
     const {
       name,
