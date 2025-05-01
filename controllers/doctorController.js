@@ -111,4 +111,4 @@ async function searchDoctor (req,res){
   }
 }
 
-module.exports = { getAllDoctor, createDoctor, setPassword };
+module.exports = { getAllDoctor, createDoctor, setPassword, searchDoctor };
