@@ -1,0 +1,19 @@
+
+const puppeteer = require('puppeteer');
+const {generatePatientHTML} = require("../utils/patientRegistrationTemplate");
+// const browser = await puppeteer.launch();
+    // const page = await browser.newPage();
+
+    // const htmlContent = generatePatientHTML(savedPatient);
+
+    // await page.setContent(htmlContent);
+    // const pdfBuffer = await page.pdf({format: 'A4'});
+
+    // await browser.close();
+
+    // res.set({
+    //   'Content-Type': 'application/pdf',
+    //   'Content-Disposition': 'attachment; filename="patient_registration.pdf"',
+    // });
+
+    // res.send(pdfBuffer);

@@ -88,4 +88,27 @@ async function getAllDoctor(req, res) {
   }
 }
 
+async function searchDoctor (req,res){
+  try{
+    const {name, contactInfo } = req.body;
+    const query = {};
+    if(name) query.name = {$regex: name, $options: "i"};
+    if(contactInfo) query.contactInfo = contactInfo;
+
+    const doctors = await Doctor.find(query);
+
+    if (doctors.length === 0) {
+      return res.status(404).json({ message: "No matching doctor found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: doctors
+    });
+
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+}
+
 module.exports = { getAllDoctor, createDoctor, setPassword };

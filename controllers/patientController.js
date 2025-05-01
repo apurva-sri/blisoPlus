@@ -1,6 +1,4 @@
 const Patient = require("../models/Patient");
-const puppeteer = require('puppeteer');
-const {generatePatientHTML} = require("../utils/patientRegistrationTemplate");
 
 async function createPatient(req, res) {
   try {
@@ -32,24 +30,12 @@ async function createPatient(req, res) {
       profileImage,
     });
 
-    const savedPatient = await newPatient.save();
+    await newPatient.save();
 
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-
-    const htmlContent = generatePatientHTML(savedPatient);
-
-    await page.setContent(htmlContent);
-    const pdfBuffer = await page.pdf({format: 'A4'});
-
-    await browser.close();
-
-    res.set({
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="patient_registration.pdf"',
+    res.send(201).json({
+      message: "Patient created",
+      patient: newPatient, 
     });
-
-    res.send(pdfBuffer);
 
   } catch (err) {
     console.error(err);
@@ -59,3 +45,40 @@ async function createPatient(req, res) {
     });
   }
 }
+
+async function getAllPatients(req, res) {
+  try {
+    const patients = await Patient.find();
+    res.status(200).json(patients);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching patients", error: error.message });
+  }
+}
+
+async function searchPatient(req, res) {
+  try {
+    const { name, contactInfo } = req.body;
+
+    const query = {};
+    if (name) query.name = { $regex: name, $options: "i" }; // case-insensitive search
+    if (contactInfo) query.contactInfo = contactInfo;
+
+    const patients = await Patient.find(query);
+
+    if (patients.length === 0) {
+      return res.status(404).json({ message: "No matching patient found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: patients
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error searching patient",
+      error: error.message
+    });
+  }
+}
+
+module.exports = { createPatient, getAllPatients, searchPatient};
