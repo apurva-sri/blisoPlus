@@ -32,7 +32,7 @@ async function createPatient(req, res) {
 
     await newPatient.save();
 
-    res.send(201).json({
+    res.status(201).json({
       message: "Patient created",
       patient: newPatient, 
     });
@@ -81,4 +81,4 @@ async function searchPatient(req, res) {
   }
 }
 
-module.exports = { createPatient, getAllPatients, searchPatient};
+module.exports = { createPatient, getAllPatients, searchPatient };
